@@ -1,0 +1,57 @@
+1. What problem does this app solve?
+   a. Forgetting your previous grades
+
+2. Who will use it?
+   a. Anyone
+
+3. What's the MINIMUM it needs to do to be useful?
+   List 3-5 features ONLY. Resist adding more!
+
+   Student Grade Tracker:
+   - Add a Grade in any subject
+   - Edit Grades
+   - View all Grades in different quarters
+   - Delete a task
+
+4. What happens if I don't build this?
+   I won't become a coder :(
+
+Each Grade needs:
+- A unique ID (so we can identify it)
+- The grade score (what to do)
+- Subject (what category it is in)
+- Quarter (extra detail for the grade tracker)
+- Date completed (a completion date as an extra detail)
+
+So our data structure looks like:
+
+{
+  "id": 1,
+  "score": 90,
+  "subject": english,
+  "quarter": "first"
+  "completion_date": "2026-01-22 10:30:00"
+}
+
+example layout:
+
+-------------------------------
+       GRADE TRACKER APP
+-------------------------------
+1. Add new grade
+2. View all grades
+3. Delete grade
+4. Exit
+-------------------------------
+Choose option (1-4): _
+
+[User types 1]
+
+Enter grade: 90%
+Enter subject: Science
+Enter quarter: first
+Enter dated completed: 2026-01-22 10:30:00
+
+✅ Grade added successfully!
+
+[Back to menu]

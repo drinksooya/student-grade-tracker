@@ -7,6 +7,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.join(BASE_DIR, "..", "grades.json")
 
 def load_data():
+    """ Loads data """
+
     try:
         with open(DATA_FILE, 'r') as file:
             data = json.load(file)
@@ -19,6 +21,8 @@ def load_data():
         print(f"Error: Failed to decode JSON. Check if the file format is valid.")
 
 def save_data(data_to_save):
+    """ Saves data in a .json file """
+
     try:
         with open(DATA_FILE, 'w') as file:
             json.dump(data_to_save, file, indent=4)
@@ -61,7 +65,8 @@ def view_grades(grades_list):
 
 
 def delete_grade(grade_list):
-    # 1. Show the user what they are looking at
+    """ Deletes Grades """
+
     view_grades(grade_list)
 
     if not grade_list:
@@ -83,17 +88,20 @@ def delete_grade(grade_list):
         print("Invalid input! Please enter a number.")
 
 def menu(grade_list):
-    print(33 * "-")
-    print("GRADE TRACKER")
-    print(33 * "-")
-
-    print("1. Add new grade")
-    print("2. View all grades")
-    print("3. Delete grade")
-    print("4. Exit")
-    print(33 * "-")
+    """ Shows the whole menu """
 
     while True:
+        print("\n")
+        print(33 * "-")
+        print("        GRADE TRACKER")
+        print(33 * "-")
+
+        print("1. Add new grade")
+        print("2. View all grades")
+        print("3. Delete grade")
+        print("4. Exit")
+        print(33 * "-")
+
         user_input = int(input("\nEnter your choice: "))
 
         if user_input == 1:
@@ -103,11 +111,10 @@ def menu(grade_list):
         elif user_input == 3:
             delete_grade(grade_list)
         elif user_input == 4:
+            print("Exiting app..")
             sys.exit()
         else:
             print("Invalid choice")
-
-
 
 if __name__ == "__main__":
     all_student_grades = load_data() or []

@@ -1,6 +1,6 @@
 import json
 import os
-from datetime import datetime
+import sys
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -60,9 +60,55 @@ def view_grades(grades_list):
         print(f"{index}. {subject}: {grade}%")
 
 
+def delete_grade(grade_list):
+    # 1. Show the user what they are looking at
+    view_grades(grade_list)
+
+    if not grade_list:
+        return
+
+    try:
+        choice = int(input("\nEnter the number of the grade to delete: "))
+        index_to_delete = choice - 1
+
+        if 0 <= index_to_delete < len(grade_list):
+            removed_item = grade_list.pop(index_to_delete)
+            print(f"Successfully deleted: {removed_item[0]}")
+
+            save_data(grade_list)
+        else:
+            print("Error: That number doesn't exist in the list.")
+
+    except ValueError:
+        print("Invalid input! Please enter a number.")
+
+def menu(grade_list):
+    print(33 * "-")
+    print("GRADE TRACKER")
+    print(33 * "-")
+
+    print("1. Add new grade")
+    print("2. View all grades")
+    print("3. Delete grade")
+    print("4. Exit")
+    print(33 * "-")
+
+    while True:
+        user_input = int(input("\nEnter your choice: "))
+
+        if user_input == 1:
+            add_grade(grade_list)
+        elif user_input == 2:
+            view_grades(grade_list)
+        elif user_input == 3:
+            delete_grade(grade_list)
+        elif user_input == 4:
+            sys.exit()
+        else:
+            print("Invalid choice")
+
+
+
 if __name__ == "__main__":
     all_student_grades = load_data() or []
-
-    add_grade(all_student_grades)
-
-    view_grades(all_student_grades)
+    menu(all_student_grades)

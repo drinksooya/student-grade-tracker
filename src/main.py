@@ -110,7 +110,7 @@ def menu(grade_list):
     while True:
         print("\n")
         print(33 * "-")
-        print("        GRADE TRACKER")
+        print("       📚 GRADE TRACKER")
         print(33 * "-")
 
         print("1. Add new grade")

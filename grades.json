@@ -1,14 +1,12 @@
 [
-    [
-        "English",
-        100.0
-    ],
-    [
-        "Science",
-        95.0
-    ],
-    [
-        "Math",
-        85.0
-    ]
+    {
+        "quarter": "Q2",
+        "subject": "Science",
+        "grade": 95.0
+    },
+    {
+        "quarter": "Q2",
+        "subject": "Social studies",
+        "grade": 98.0
+    }
 ]

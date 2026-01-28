@@ -1,6 +1,5 @@
 import json
 import os
-import sys
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -34,35 +33,53 @@ def save_data(data_to_save):
 
 
 def add_grade(grades_list):
-    """ Adds new grades """
+    quarter = input("Enter Quarter (e.g., Q1, Q2): ")
+    subject = input("Enter Subject: ")
 
-    subject = input("Enter the subject name: ")
-    user_input = input(f"Enter the grade for {subject}: ")
-
+    if not subject.replace(" ", "").isalpha():
+        print("Invalid Input: Please use letters for the subject name.")
+        return
     try:
-        grade = float(user_input)
-        if 0 <= grade <= 100:
-            grades_list.append((subject, grade))
-            save_data(grades_list)
-            print(f"Added {subject}: {grade}")
-        else:
-            print("Error: Grade must be 0-100.")
+        grade = float(input(f"Enter Grade for {subject}: "))
+
+        # Storing as a Dictionary for better organization
+        new_entry = {
+            "quarter": quarter,
+            "subject": subject,
+            "grade": grade
+        }
+
+        grades_list.append(new_entry)
+        save_data(grades_list)
     except ValueError:
-        print("Invalid input! Please enter a number.")
+        print("Invalid input.")
 
 
 def view_grades(grades_list):
-    """ Displays all grades """
-
     if not grades_list:
-        print("No grades added yet.")
+        print("\nNo grades added yet.")
         return
 
-    print("\n--- Student Grade Report ---")
-    # Now this works because each item is a pair!
-    for index, (subject, grade) in enumerate(grades_list, start=1):
-        print(f"{index}. {subject}: {grade}%")
+    quarters = sorted(list(set(item['quarter'] for item in grades_list)))
 
+    print("\n" + "=" * 45)
+    print(f"{'ID':<4} | {'Subject':<15} | {'Grade':<5}")
+
+    for q in quarters:
+        # 2. Print a separator for each Quarter
+        print("-" * 45)
+        print(f"--- QUARTER: {q} ---")
+        print("-" * 45)
+
+        # 3. Print only the grades that match this quarter
+        for index, item in enumerate(grades_list, start=1):
+            if item['quarter'] == q:
+                s = item.get("subject", "N/A")
+                g = item.get("grade", 0.0)
+                print(f"{index:<4} | {s:<15} | {g:<5}")
+
+    print("=" * 45)
+    print(f"Total Records: {len(grades_list)}\n")
 
 def delete_grade(grade_list):
     """ Deletes Grades """
@@ -78,7 +95,7 @@ def delete_grade(grade_list):
 
         if 0 <= index_to_delete < len(grade_list):
             removed_item = grade_list.pop(index_to_delete)
-            print(f"Successfully deleted: {removed_item[0]}")
+            print(f"Successfully deleted: {removed_item['subject']}")
 
             save_data(grade_list)
         else:
@@ -102,19 +119,19 @@ def menu(grade_list):
         print("4. Exit")
         print(33 * "-")
 
-        user_input = int(input("\nEnter your choice: "))
+        user_input = input("\nEnter your choice: ").strip()
 
-        if user_input == 1:
+        if user_input == "1":
             add_grade(grade_list)
-        elif user_input == 2:
+        elif user_input == "2":
             view_grades(grade_list)
-        elif user_input == 3:
+        elif user_input == "3":
             delete_grade(grade_list)
-        elif user_input == 4:
-            print("Exiting app..")
-            sys.exit()
+        elif user_input == "4":
+            print("Exiting app...")
+            break
         else:
-            print("Invalid choice")
+            print("Invalid choice, please pick 1-4.")
 
 if __name__ == "__main__":
     all_student_grades = load_data() or []

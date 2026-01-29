@@ -31,49 +31,64 @@ def save_data(data_to_save):
         print(f"An error occurred while saving contacts: {e}")
 
 def add_grade(grades_list):
-    quarter = input("Enter Quarter (e.g., Q1, Q2): ")
-    subject = input("Enter Subject: ")
+    while True:
+        quarter = input("Enter Quarter (e.g., Q1, Q2): ")
+        subject = input("Enter Subject: ")
 
-    if not subject.replace(" ", "").isalpha():
-        print("Invalid Input: Please use letters for the subject name.")
-        return
-    try:
-        grade = float(input(f"Enter Grade for {subject}: "))
+        if not subject.replace(" ", "").isalpha():
+            print("Invalid Input: Please use letters for the subject name.")
+            continue
+        try:
+            grade = float(input(f"Enter Grade for {subject}: "))
 
-        # Storing as a Dictionary for better organization
-        new_entry = {
-            "quarter": quarter,
-            "subject": subject,
-            "grade": grade
-        }
+            # Storing as a Dictionary for better organization
+            new_entry = {
+                "quarter": quarter,
+                "subject": subject,
+                "grade": grade
+            }
 
-        grades_list.append(new_entry)
-        save_data(grades_list)
-    except ValueError:
-        print("Invalid input.")
+            grades_list.append(new_entry)
+            save_data(grades_list)
+            break
+        except ValueError:
+            print("Invalid input.")
+
 
 def view_grades(grades_list):
     if not grades_list:
         print("\nNo grades added yet.")
         return
 
+    # 1. Get unique quarters
     quarters = sorted(list(set(item['quarter'] for item in grades_list)))
 
     print("\n" + "=" * 45)
     print(f"{'ID':<4} | {'Subject':<15} | {'Grade':<5}")
 
     for q in quarters:
-        # 2. Print a separator for each Quarter
         print("-" * 45)
         print(f"--- QUARTER: {q} ---")
         print("-" * 45)
 
-        # 3. Print only the grades that match this quarter
+        # We'll use these to track the average for THIS quarter
+        q_total = 0
+        q_count = 0
+
         for index, item in enumerate(grades_list, start=1):
             if item['quarter'] == q:
                 s = item.get("subject", "N/A")
                 g = item.get("grade", 0.0)
                 print(f"{index:<4} | {s:<15} | {g:<5}")
+
+                # Update our math trackers
+                q_total += g
+                q_count += 1
+
+        # 2. Print the average for the current quarter
+        if q_count > 0:
+            q_avg = q_total / q_count
+            print(f"\n>> {q} Average: {q_avg:.2f}")
 
     print("=" * 45)
     print(f"Total Records: {len(grades_list)}\n")

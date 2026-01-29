@@ -8,5 +8,10 @@
         "quarter": "Q2",
         "subject": "Social studies",
         "grade": 98.0
+    },
+    {
+        "quarter": "Q1",
+        "subject": "Math",
+        "grade": 90.0
     }
 ]

@@ -2,7 +2,6 @@ import json
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
 DATA_FILE = os.path.join(BASE_DIR, "..", "grades.json")
 
 def load_data():
@@ -11,7 +10,6 @@ def load_data():
     try:
         with open(DATA_FILE, 'r') as file:
             data = json.load(file)
-
         return data
 
     except FileNotFoundError:
@@ -26,11 +24,11 @@ def save_data(data_to_save):
         with open(DATA_FILE, 'w') as file:
             json.dump(data_to_save, file, indent=4)
 
+        print("✅ Grade added successfully!")
         print(f"Data successfully saved to {DATA_FILE}")
 
     except Exception as e:
         print(f"An error occurred while saving contacts: {e}")
-
 
 def add_grade(grades_list):
     quarter = input("Enter Quarter (e.g., Q1, Q2): ")
@@ -53,7 +51,6 @@ def add_grade(grades_list):
         save_data(grades_list)
     except ValueError:
         print("Invalid input.")
-
 
 def view_grades(grades_list):
     if not grades_list:

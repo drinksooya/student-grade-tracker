@@ -21,7 +21,6 @@ Each Grade needs:
 - The grade score (what to do)
 - Subject (what category it is in)
 - Quarter (extra detail for the grade tracker)
-- Date completed (a completion date as an extra detail)
 
 So our data structure looks like:
 
@@ -30,7 +29,6 @@ So our data structure looks like:
   "score": 90,
   "subject": english,
   "quarter": "first"
-  "completion_date": "2026-01-22 10:30:00"
 }
 
 example layout:
@@ -50,7 +48,6 @@ Choose option (1-4): _
 Enter grade: 90%
 Enter subject: Science
 Enter quarter: first
-Enter dated completed: 2026-01-22 10:30:00
 
 ✅ Grade added successfully!
 
